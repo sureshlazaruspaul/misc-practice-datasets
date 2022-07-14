@@ -77,9 +77,21 @@ import delimited `cpi_file_url', delim("|", collapse) clear
 ## Import in SAS using the following code
 
 ```{sas}
-proc import datafile = "https://raw.githubusercontent.com/sureshlazaruspaul/misc-practice-datasets/main/us-cpi-data/cpi.txt" 
-    out = cpi_data dbms = dlm replace;
-    delimiter = "|";
-    getnames=yes;
+filename cpi_data temp;
+
+/* fetch data from github */
+
+proc http
+  url = "https://raw.githubusercontent.com/sureshlazaruspaul/misc-practice-datasets/main/us-cpi-data/cpi.txt"
+  method = "GET"
+  out = cpi_data;
+run;
+
+/* import to a SAS data set */
+
+proc import file = cpi_data
+  out=work.cpi_data dbms = dlm replace;
+  delimiter = "|";
+  getnames = yes;
 run;
 ```
