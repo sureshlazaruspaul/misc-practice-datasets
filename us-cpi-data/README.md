@@ -64,4 +64,22 @@ cpi_yearly_means %>%
 
 ## Import in Stata using the following code
 
+```{stata}
+local cpi_file_url = "https://raw.githubusercontent.com/sureshlazaruspaul/misc-practice-datasets/main/us-cpi-data/cpi.txt"
+
+import delimited `cpi_file_url', delim("|", collapse) clear
+```
+
+
+
+
+
 ## Import in SAS using the following code
+
+```{sas}
+proc import datafile = "https://raw.githubusercontent.com/sureshlazaruspaul/misc-practice-datasets/main/us-cpi-data/cpi.txt" 
+    out = cpi_data dbms = dlm replace;
+    delimiter = "|";
+    getnames=yes;
+run;
+```
